@@ -36,4 +36,8 @@ app.use('/socios',socioRoute);
 const promocionRoute = require('./api/routes/promocion');
 app.use('/promociones', promocionRoute);
 
+const contactoRoute = require('./api/routes/contacto');
+app.use('/contacto', contactoRoute);
+
+
 module.exports = app;
