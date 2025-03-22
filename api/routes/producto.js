@@ -318,5 +318,24 @@ router.delete('/:id',
                 }
             });
     });
-    
+    router.put('/estado',
+        [authJwt.verifyToken, authJwt.invalidTokenCheck, authJwt.esEmpleado],
+        (req, res) => {
+          const { id, activo } = req.body;
+          mysqlConnection.query('call spActualizarEstadoProducto(?, ?)', [id, activo],
+            (err, rows, fields) => {
+              if (!err) {
+                res.status(200).json({
+                  "ok": true,
+                  "mensaje": "Estado del producto actualizado con éxito"
+                });
+              } else {
+                console.log(err);
+                res.status(500).json({
+                  "ok": false,
+                  "mensaje": "Error al actualizar el estado del producto"
+                });
+              }
+            });
+        });
 module.exports = router;
